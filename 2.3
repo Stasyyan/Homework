@@ -1,0 +1,9 @@
+jmp start  ; move to entry point 
+val_static:
+val_db_day:  db 8
+val_db_mnt:  db 5
+start:
+mov a, [val_db_day] ; move all values to registers
+mov b, [val_db_mnt]
+add a,b             ; sum values and write to 'a' register
+hlt ; halt program

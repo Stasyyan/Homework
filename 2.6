@@ -1,0 +1,21 @@
+jmp start ; move to entry point 
+start : mov b, 4 ; set parameter number
+call factorial
+hlt ; halt program 
+factorial :
+;arguments :
+;        b: fac-number 
+;moves result to b-register
+push a 
+push c
+mov a,1
+fact_loop:
+mul b ; mult a * c
+dec b ; b--
+jnz fact_loop ; if ( b!=0) goto fact_loop;
+mov b, a ; saving result
+;recovering registers 
+pop c 
+pop a
+
+ret

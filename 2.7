@@ -1,66 +1,35 @@
-jmp start ; move to entry point 
-start: 
-mov b,5 ; set parameter number 
-call factorial 
-hlt ; halt program
-factorial :
-; arguments:
-;       b: fac-number
-;       moves result to b-register 
-push a
-push c
-
-mov a,1
-fact_loop:
-mul b ; mult a * c 
-call  print num 
-dec b ; b--
-jnz fact_loop ; if (b !=0) goto fact_loop;
-mov b,a       ; saving result
-; recovering registers 
-pop c
-pop a
-
-ret
-print_num:
-;arguments :
-;a:source number
-
-;saving registers 
-push a
-push b
-push c
-push d
-
-mov c, 0 ; counter of all numbers
-print_num_loop:
-;in this step a is current value
-;we find rest value 
-mov d,a ; saving previous number 
-mov b ,10
-div b ; dividing number by 10
-push a ; saving current value 
-mul b 
-sub d,a ; in d now destination number 
-pop a ; returning current value 
-push d ; push number into stack
-inc c ; increment count of numbers 
-cmp a,0 ; comparing number with 0
-jne print_num_loop
-;prepairing screen :
-; in 'd' address 
-mov d,232 
-print_num_loop_print:
-pop a 
-add a, 48 ; 48 is number of '0' symbol
-mov [d],a ; push number on screen 
-inc d ; increment screen position 
-dec c ; decrement count of numbers 
-jne print_num_loop_print  ; move if c!=0
-; recovering registers 
-pop d 
-pop c
-pop b
-pop a
-
-ret
+MOV A, 0   ;Число на входе
+MOV B,A    
+MOV A, 0   ;Число на входе
+    CMP A, 0
+    JZ ZERO
+  compare:
+PUSH A  
+    CMP A, 6
+    JAE writeStop
+ MOV B,A  
+null:  
+PUSH A 
+    MOV D, 252
+    ADD B, 48
+    MOV [D], B
+   ZERO:
+   MOV A,1
+ JMP compare
+ JMP null 
+ printAns:
+  MOV B,A
+  JZ END
+  CMP B,252
+ JBE next2
+ END:
+  HLT
+  END:
+ HLT
+ 
+ stop:
+   DB "ERROR!"
+   INC D
+   CMP B, [C]   
+   JNZ printERROR
+  HLT

@@ -1,30 +1,22 @@
-jmp start ; move to entry point 
-val_static: 
-val_db: db "08/05" ; my birthday
-              db 0   ;string '\0' end symbol
+JMP start
+x: DB "08/05" 
+       DB 0	
 start:
-     mov c, val_db   ; set parameter scr string 
-     mov d, 232      ; screen start
-     call print
-     hlt ; halt program
-print:
-     ; arguments 
-     ;      c : source string pointer
-     ;      d : destination output address
-     ;saving registers 
-     push a
-     push b
-     
-     mov b,0    ; string start 
-print_loop:
-mov a, [c] ; char from string 
-mov [d], a ; writing to screen 
-inc c      ; incrementing string char position 
-inc d      ; incrementing screen char position 
-cmp b, [c] ; check for end
-jnz print_loop ;jump if not end of string 
-;returning register values
-pop b
-pop a
-ret ;  returning after 'call' function 
-; hlt ; half program
+	MOV C, x  
+	MOV D, 252	
+	CALL y
+        HLT             
+y:			
+	PUSH A
+	PUSH B
+	MOV B, 0
+.loop:
+	MOV A, [C]	
+	MOV [D], A	
+	INC C
+	INC D  
+	CMP B, [C]	
+	JNZ .loop	
+	POP B
+	POP A
+	RET

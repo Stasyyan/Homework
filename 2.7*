@@ -1,0 +1,35 @@
++MOV A, 0   ;Число на входе
+ +MOV B,A    
+ +MOV A, 0   ;Число на входе
+ +    CMP A, 0
+ +    JZ ZERO
+ +  compare:
+ +PUSH A  
+ +    CMP A, 6
+ +    JAE writeStop
+ + MOV B,A  
+ +null:  
+ +PUSH A 
+ +    MOV D, 252
+ +    ADD B, 48
+ +    MOV [D], B
+ +   ZERO:
+ +   MOV A,1
+ + JMP compare
+ + JMP null 
+ + printAns:
+ +  MOV B,A
+ +  JZ END
+ +  CMP B,252
+ + JBE next2
+ + END:
+ +  HLT
+ +  END:
+ + HLT
+ + 
+ + stop:
+ +   DB "ERROR!"
+ +   INC D
+ +   CMP B, [C]   
+ +   JNZ printERROR
+ +  HLT

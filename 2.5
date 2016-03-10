@@ -1,48 +1,53 @@
-jmp start ; move to entry point 
-start : 
-      mov a, 128 ; set parameter number
-      mov d, 232 ; screen start
-      call print_num 
-      hlt  ; halt program 
-  print_ num:
-            ; arguments:
-            ;       a : source number 
-            ; saving registers
-            push a
-            push b
-            push c
-            push d
-            
-            mov c,0 ; counter of all numbers 
-print_num_loop:
-         ; in this step a is current value 
-         ; we find rest value
-         mov d,a ; saving previous number 
-         mov b,10
-         div b   ; dividing number by 10
-         push a  ; saving current value
-         mul b
-         sub d,a ; in d now destination number
-         pop a   ; returning current value
-         push d  ; push number into stack
-         inc  c  ; increment count of numbers 
-         cmp a,0 ; comparing number with 0
-         jne ptint_num_loop
-         ; prepairing screen:
-         ; in 'd' address 
-         mov d, 232
-         print_num_loop_print:
-         pop a
-         add a,48 ; 48 is number of '0' symbol
-         mov [d],a ; push number on screen 
-         inc d ; increment screen position 
-         dec c; decrement count of numbers 
-         jne print_num_loop_print ; move if c!=0
-         ; recovering registers 
-         pop d
-         pop c
-         pop b
-         pop a
-         ret
+mov A, 128
+mov B, A
+ call had	;
+  had:
+   div 100
+   push A
+   mul 100
+   sub B,A
+   mov A,B
+   div 10
+   push A
+   mul 10
+   sub B,A
+   mov A,B
+   unit:
+   mov D,B
+   pop A
+   mov C,A
+   pop A
+   mov B,A
+   mov A,D
+   push A
+   mov A,C
+   push A
+   mov A,B
+   mov B,252
+ a_xit:
+ cmp A,0
+ jnz output 
+ filtration_1:
+  inc B
+  pop A
+  cmp A,0
+  jnz output
+ filtration_2:
+ inc B
+ pop A
+ jmp output 
+ check:
+  pop A
+  output:
+  add A, 48
+  mov [B],A
+  inc B
+  cmp B,0
+  jz end
+  cmp B,252
+ jbe check  
+ end:
+ hlt
+ ret
          
            

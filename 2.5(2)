@@ -1,0 +1,53 @@
+mov A, 128
+mov B, A
+ call had	;
+  had:
+   div 100
+   push A
+   mul 100
+   sub B,A
+   mov A,B
+   div 10
+   push A
+   mul 10
+   sub B,A
+   mov A,B
+   unit:
+   mov D,B
+   pop A
+   mov C,A
+   pop A
+   mov B,A
+   mov A,D
+   push A
+   mov A,C
+   push A
+   mov A,B
+   mov B,252
+ a_xit:
+ cmp A,0
+ jnz output 
+ filtration_1:
+  inc B
+  pop A
+  cmp A,0
+  jnz output
+ filtration_2:
+ inc B
+ pop A
+ jmp output 
+ check:
+  pop A
+  output:
+  add A, 48
+  mov [B],A
+  inc B
+  cmp B,0
+  jz end
+  cmp B,252
+ jbe check  
+ end:
+ hlt
+ ret
+         
+          

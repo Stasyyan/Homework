@@ -1,3 +1,6 @@
+JMP start
+x: DB "08/05" 
+   DB 0
 start:
     MOV С, x
     MOV D , 232   
@@ -11,6 +14,3 @@ y:
     CMP B , [C]
     JNZ y
     RET 
-    
-x: DB "08/05" 
-   DB 0

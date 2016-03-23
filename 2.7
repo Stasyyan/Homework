@@ -13,6 +13,11 @@ PUSH A
     MOV D, 252
     ADD B, 48
     MOV [D], B
+     stop:
+   DB "ERROR!"
+   INC D
+   CMP B, [C]   
+   JNZ printERROR
    ZERO:
    MOV A,1
  JMP compare
@@ -20,16 +25,10 @@ PUSH A
  printAns:
   MOV B,A
   JZ END
-  CMP B,252
+  CMP B,254
  JBE next2
  END:
   HLT
-  END:
- HLT
+
  
- stop:
-   DB "ERROR!"
-   INC D
-   CMP B, [C]   
-   JNZ printERROR
-  HLT
+

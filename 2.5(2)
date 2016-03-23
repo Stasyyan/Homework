@@ -1,6 +1,9 @@
 mov A, 128
-mov B, A
- call had	;
+ call Kek 
+ HLT 
+  Kek: 
+  mov B , A 
+  call had
   had:
    div 100
    push A
@@ -27,12 +30,12 @@ mov B, A
  a_xit:
  cmp A,0
  jnz output 
- filtration_1:
+ chech_1:
   inc B
   pop A
   cmp A,0
   jnz output
- filtration_2:
+ chech_2:
  inc B
  pop A
  jmp output 
@@ -44,10 +47,8 @@ mov B, A
   inc B
   cmp B,0
   jz end
-  cmp B,252
+  cmp B,255
  jbe check  
  end:
- hlt
  ret
-         
-          
+

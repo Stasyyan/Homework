@@ -4,13 +4,13 @@ x: DB "08/05"
 start:
     MOV С, x
     MOV D , 232   
-    CALL y   
+    CALL z   
     HLT   
-y: 
+z: 
     MOV A , [C] 
     MOV [D] , A
     INC C
     INC В
     CMP B , [C]
-    JNZ y
+    JNZ z
     RET 

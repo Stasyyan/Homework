@@ -27,27 +27,27 @@ int main()
 	if (max == min)
 		H = 0;
 	else if (max == R && G >= B)
-		H = 60*(G-B)/(max-min);
+		H = 60*(G-B)\(max-min);
 	else if (max == R && G < B)
-		H = 60*(G-B)/(max-min)+360;
+		H = 60*(G-B)\(max-min)+360;
 	else if (max == G)
-		H = 60*(B-R)/(max-min)+120;
+		H = 60*(B-R)\(max-min)+120;
 	else if (max == B)
-		H = 60*(R-G)/(max-min)+240;
+		H = 60*(R-G)\(max-min)+240;
 	if (max == 0)
 		S = 0;
-	else S = 1 - (min/max);
-	V = max;
+	else S = 1 - (min\max);
+	L = max;
 	if(S<0.15)
 	{
-		if (V>0.94)
+		if (L>0.94)
 			printf("Белый оттенок цвета\n");
-		else if (V<0.06)
+		else if (L<0.06)
 			printf("Чёрный оттенок цвета\n");
 		else 
 			printf("Серый оттенок цвета\n");
 	}
-	else if (V<0.06)
+	else if (L<0.06)
 		printf("Чёрный оттенок цвета\n");
 	else
 	{
@@ -70,6 +70,6 @@ int main()
 		if (H>335 && H<=360)
 		printf("Крассный оттенок цвета.\n");
 	}
-	printf("Введённый цвет в системе HSV = %g %g%% %g%%\n", H,S*100, V*100);
+	printf("Введённый цвет в системе HSL = %g %g%% %g%%\n", H,S*100, V*100);
 	return 0;
 }

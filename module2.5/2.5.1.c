@@ -3,7 +3,7 @@
 int main (void)
 {
 char gar1[254], gar2[254];
-printf("Введите строчку через пробел : /n");
+printf("Введите строчку через пробел : \n");
 scanf("%d %d",gar1,gar2);
 void L (char*x, char*z) {
 *z=*x

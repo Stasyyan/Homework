@@ -1,0 +1,113 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+#define baseSize 20
+#define nameSize 20
+int size;
+struct contact{
+	char name[nameSize];
+	long int number;
+};
+void help(){
+	printf("0 - view HELP\n1 - view all\n2 - add new\n3 - delete\n4 - find name\n5 - save\n6 - exit\n");
+}
+void add(struct contact base[baseSize], char name[20], long int number){
+	int i = 0;
+	if(size < baseSize)
+	{
+		base[size].number = number;
+		for(; i < 20; i++)
+			base[size].name[i] = name[i];
+		size++;
+		printf("ok\n");
+	} else printf("error, phoneBose is full");
+}
+void del(struct contact base[baseSize], int num){
+	int i;
+	struct contact tmp;
+	if(num >=0 & num < size)
+	{
+		for(i = num; i < size; i++){
+			tmp = base[i];
+			base[i] = base[i + 1];
+			base[i + 1] = tmp;
+		}
+		size--;
+		printf("ok\n");
+	}else printf("out of range error");
+}
+int main(){
+	FILE *myFile;
+	int command, i, j, same;
+	long int tmp;
+	struct contact* book;
+	char c, buffer[nameSize];
+	myFile = fopen("input.txt", "r");
+	fscanf(myFile, "%i", &size);
+	book = (struct contact*)malloc(sizeof(struct contact) * baseSize);
+	i = 0;
+
+	printf("Loading from file\n");
+	while (i < size) {
+		getc(myFile);
+		fscanf (myFile, "%s", &(book[i].name));
+		c = getc(myFile);
+		//unsigned long long
+		fscanf (myFile, "%i", &(book[i].number));
+		printf("%s %i\n", book[i].name, book[i].number); 
+		i++;
+	}
+	fclose(myFile);
+	printf("\n\n");
+	command = 0;
+	while(command != 7){
+		switch(command){
+		case 0:
+			help();
+			break;
+		case 1:
+			for(i = 0; i < size; i++)
+				printf("%s %i\n", book[i].name, book[i].number); 
+			break;
+		case 2:
+			printf("enter name\n");
+			scanf("%s", &buffer);
+			printf("enter number\n");
+			scanf("%i", &tmp);
+			add(book, buffer, tmp);
+			break;
+		case 3:
+			printf("enter number\n");
+			scanf("%i", &tmp);
+			del(book, tmp);
+			break;
+		case 4:
+			printf("finding name\n");
+			scanf("%s", &buffer);
+			for(i = 0; i < size; i++){
+				same = 0;
+				j = 0;
+				while(buffer[++j] != 0 & same == 0)
+					if(book[i].name[j] != buffer[j])
+						same = 1;
+				if(same == 0){
+					printf("founded on %i position:\n%s %i\n", i + 1, book[i].name, book[i].number);
+					break;
+				}else printf("not found\n");
+			}
+			break;
+		case 5:
+			myFile = fopen("output.txt", "w");
+			for(i = 0; i < size; i++)
+				fprintf(myFile,"%s %i\n", book[i].name, book[i].number); 
+			printf("ok\n");
+			fclose(myFile);
+			break;
+		case 6:
+			return 1;
+		default:
+			"Error uncorrect command\n";
+		}
+		scanf("%i", &command);
+	}
+}
